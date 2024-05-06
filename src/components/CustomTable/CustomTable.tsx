@@ -1,8 +1,26 @@
 import React from 'react'
+import { ColDef } from '../../types'
+import Headers from '../Headers/Headers'
+import Row from '../Row/Row'
 
-const CustomTable = () => {
+export interface CustomTableParams<T> {
+    data: T[]
+    colDef: ColDef<T>
+}
+
+const CustomTable = <T,>({data, colDef}: CustomTableParams<T>) => {
+
+    const rows = data.map(row => <Row key={`${Math.random()}`} data={row} colDef={colDef} />)
+
   return (
-    <div>CustomTable</div>
+    <table style={{width: "100%"}}>
+        <thead style={{textAlign: "left"}}>
+            <Headers colDef={colDef} />
+        </thead>
+        <tbody style={{textAlign: "left"}}>
+            {rows}
+        </tbody>
+    </table>
   )
 }
 
